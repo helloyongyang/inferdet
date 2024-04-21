@@ -30,7 +30,7 @@ class infer(metaclass=ABCMeta):
         logger.info("Loading model is finished.")
 
     @abstractmethod
-    def preprocess(self, img):
+    def preprocess(self, img_path):
         pass
 
     @abstractmethod
@@ -38,13 +38,13 @@ class infer(metaclass=ABCMeta):
         pass
 
     def infer_model(self, inputs):
-        return self.infer_model_func(inputs)
+        return self.infer_model_func(inputs, self.model)
 
     def load_model(self, model_path):
         return self.load_model_func(model_path)
     
-    def infer(self, img):
-        inputs = self.preprocess(img)
+    def infer(self, img_path):
+        inputs = self.preprocess(img_path)
         outputs = self.infer_model(inputs)
-        detections = self.postprocess(outputs)
-        return detections
+        ans = self.postprocess(outputs)
+        return ans
