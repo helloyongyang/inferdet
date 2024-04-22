@@ -11,5 +11,5 @@ info = {
     "outputs_name" : ["output"]
 }
 results, info = infer_instance.infer("/home/yongyang/work/projects/infer_det/test/cat.jpg", info)
-print(results, info)
-
+print(results)
+print(info)

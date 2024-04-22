@@ -21,4 +21,3 @@ class infer_resnet(infer):
     def postprocess(self, outputs, info):
         class_id = np.argmax(outputs[0], axis=1)
         return class_id, info
-
