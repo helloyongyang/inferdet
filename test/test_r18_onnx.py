@@ -13,7 +13,7 @@ info = {
 
 infer_instance = infer_resnet(model_path, backend)
 
-infer_instance.load_model(model_path, info)
+infer_instance.load_model(info)
 
 results, info = infer_instance.infer("/home/yongyang/work/projects/infer_det/test/cat.jpg", info)
 logger.info(f"results : {results}")

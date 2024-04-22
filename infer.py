@@ -26,9 +26,9 @@ class infer(metaclass=ABCMeta):
         else:
             raise Exception(f"Not support {self.backend} backend.")
 
-    def load_model(self, model_path, info):
+    def load_model(self, info):
         logger.info("Loading model...")
-        self.model, info = self.load_model_func(model_path, info)
+        self.model, info = self.load_model_func(self.model_path, info)
         logger.info("Loading model is finished.")
 
     @abstractmethod

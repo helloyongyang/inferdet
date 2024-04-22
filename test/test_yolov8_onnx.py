@@ -32,7 +32,7 @@ info = {
 
 infer_instance = infer_yolov8(model_path, backend)
 
-infer_instance.load_model(model_path, info)
+infer_instance.load_model(info)
 
 img_path = "/home/yongyang/work/projects/infer_det/test/bus.jpg"
 results, info = infer_instance.infer(img_path, info)
