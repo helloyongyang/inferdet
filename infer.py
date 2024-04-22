@@ -56,5 +56,5 @@ class infer(metaclass=ABCMeta):
             label_x = x1
             label_y = y1 - 10 if y1 - 10 > label_height else y1 + 10
             cv2.rectangle(img, (int(x1), int(y1)), (int(x1 + w), int(y1 + h)), (0, 0, 255), 2)
-            cv2.putText(img, class_name, (label_x, label_y), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 1, cv2.LINE_AA)
+            cv2.putText(img, class_name, (int(label_x), int(label_y)), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 1, cv2.LINE_AA)
         cv2.imwrite(save_path, img)

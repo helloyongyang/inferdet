@@ -72,10 +72,10 @@ class infer_yolov8(infer):
                 x, y, w, h = outputs[i][0], outputs[i][1], outputs[i][2], outputs[i][3]
 
                 # Calculate the scaled coordinates of the bounding box
-                left = int((x - w / 2) * x_factor)
-                top = int((y - h / 2) * y_factor)
-                width = int(w * x_factor)
-                height = int(h * y_factor)
+                left = (x - w / 2) * x_factor
+                top = (y - h / 2) * y_factor
+                width = w * x_factor
+                height = h * y_factor
 
                 # Add the class ID, score, and box coordinates to the respective lists
                 class_ids.append(class_id)
