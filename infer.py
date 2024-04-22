@@ -29,22 +29,22 @@ class infer(metaclass=ABCMeta):
         self.model = self.load_model(self.model_path)
         logger.info("Loading model is finished.")
 
+    def load_model(self, model_path):
+        return self.load_model_func(model_path)
+
     @abstractmethod
     def preprocess(self, img_path):
         pass
 
+    def infer_model(self, inputs, info):
+        return self.infer_model_func(inputs, self.model, info)
+
     @abstractmethod
-    def postprocess(self, outputs):
+    def postprocess(self, outputs, info):
         pass
-
-    def infer_model(self, inputs):
-        return self.infer_model_func(inputs, self.model)
-
-    def load_model(self, model_path):
-        return self.load_model_func(model_path)
     
-    def infer(self, img_path):
-        inputs = self.preprocess(img_path)
-        outputs = self.infer_model(inputs)
-        ans = self.postprocess(outputs)
-        return ans
+    def infer(self, img_path, info):
+        inputs, info = self.preprocess(img_path, info)
+        outputs, info = self.infer_model(inputs, info)
+        results, info = self.postprocess(outputs, info)
+        return results, info
