@@ -87,6 +87,6 @@ class infer_yolov8(infer):
         # Iterate over the selected indices after non-maximum suppression
         for i in indices:
             # Get the box, score, and class ID corresponding to the index
-            detection = [class_ids[i], boxes[i][0], boxes[i][1], boxes[i][2], boxes[i][3]]
+            detection = [class_ids[i], info["class_names"][class_ids[i]], boxes[i][0], boxes[i][1], boxes[i][2], boxes[i][3]]
             detections.append(detection)
         return detections, info

@@ -1,6 +1,7 @@
 import os
 from loguru import logger
 from abc import abstractmethod, ABCMeta
+import cv2
 from backend import *
 
 
@@ -48,3 +49,14 @@ class infer(metaclass=ABCMeta):
         outputs, info = self.infer_model(inputs, info)
         results, info = self.postprocess(outputs, info)
         return results, info
+
+    def show_results_single_img(self, img_path, results, class_names, save_path):
+        img = cv2.imread(img_path)
+        for result in results:
+            class_id, class_name, x1, y1, w, h = result
+            (label_width, label_height), _ = cv2.getTextSize(class_name, cv2.FONT_HERSHEY_SIMPLEX, 0.8, 1)
+            label_x = x1
+            label_y = y1 - 10 if y1 - 10 > label_height else y1 + 10
+            cv2.rectangle(img, (int(x1), int(y1)), (int(x1 + w), int(y1 + h)), (0, 0, 255), 2)
+            cv2.putText(img, class_name, (label_x, label_y), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 1, cv2.LINE_AA)
+        cv2.imwrite(save_path, img)
