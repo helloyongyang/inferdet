@@ -26,12 +26,10 @@ class infer(metaclass=ABCMeta):
         else:
             raise Exception(f"Not support {self.backend} backend.")
 
+    def load_model(self, model_path, info):
         logger.info("Loading model...")
-        self.model = self.load_model(self.model_path)
+        self.model, info = self.load_model_func(model_path, info)
         logger.info("Loading model is finished.")
-
-    def load_model(self, model_path):
-        return self.load_model_func(model_path)
 
     @abstractmethod
     def preprocess(self, img_path):

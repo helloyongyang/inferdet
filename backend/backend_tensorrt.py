@@ -1,6 +1,6 @@
-def load_tensorrt(model_path):
+def load_tensorrt(model_path, info):
     model = None
-    return model
+    return model, info
 
 def infer_tensorrt(inputs, model, info):
     outputs = None

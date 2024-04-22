@@ -1,10 +1,9 @@
 from algo import infer_yolov8
+from loguru import logger
 
 
 model_path = "/home/yongyang/work/projects/infer_det/test/yolov8n.onnx"
 backend = "onnx"
-
-infer_instance = infer_yolov8(model_path, backend)
 
 class_names = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train',
          'truck', 'boat', 'traffic light', 'fire hydrant', 'stop sign',
@@ -27,11 +26,16 @@ info = {
     "input_height": 640,
     "confidence_thres": 0.5,
     "iou_thres": 0.5,
-    "class_names": class_names
+    "class_names": class_names,
+    "providers": ["CPUExecutionProvider"]
 }
+
+infer_instance = infer_yolov8(model_path, backend)
+
+infer_instance.load_model(model_path, info)
 
 img_path = "/home/yongyang/work/projects/infer_det/test/bus.jpg"
 results, info = infer_instance.infer(img_path, info)
-print(results)
-print(info)
+logger.info(f"results : {results}")
+logger.info(f"info : {info}")
 infer_instance.show_results_single_img(img_path, results, info, "/home/yongyang/work/projects/infer_det/test/bus_res.jpg")

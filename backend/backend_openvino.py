@@ -1,6 +1,6 @@
-def load_openvino(model_path):
+def load_openvino(model_path, info):
     model = None
-    return model
+    return model, info
 
 def infer_openvino(inputs, model, info):
     outputs = None

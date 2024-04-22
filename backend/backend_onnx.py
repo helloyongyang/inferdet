@@ -1,10 +1,9 @@
 import onnxruntime as ort
-import numpy as np
 
 
-def load_onnx(model_path):
-    model = ort.InferenceSession(model_path)
-    return model
+def load_onnx(model_path, info):
+    model = ort.InferenceSession(model_path, providers=info["providers"])
+    return model, info
 
 def infer_onnx(inputs, model, info):
     outputs_name = info["outputs_name"]
