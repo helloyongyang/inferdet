@@ -30,6 +30,7 @@ info = {
     "input_height": 640,
     "confidence_thres": 0.001,
     "iou_thres": 0.7,
+    "max_det": 300,
     "class_names": class_names,
     "providers": ["CPUExecutionProvider"]
 }

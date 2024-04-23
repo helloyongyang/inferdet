@@ -96,4 +96,8 @@ class infer_yolov8(infer):
             # Get the box, score, and class ID corresponding to the index
             detection = [class_ids[i], info["class_names"][class_ids[i]], scores[i].astype(np.float64), boxes[i][0], boxes[i][1], boxes[i][2], boxes[i][3]]
             detections.append(detection)
+
+        detections.sort(key=lambda x: x[2], reverse = True)
+        if len(detections) > info["max_det"]:
+            detections = detections[:info["max_det"]]
         return detections, info
