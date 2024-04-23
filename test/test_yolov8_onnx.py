@@ -25,7 +25,8 @@ info = {
     "input_width": 640,
     "input_height": 640,
     "confidence_thres": 0.5,
-    "iou_thres": 0.5,
+    "iou_thres": 0.7,
+    "max_det": 300,
     "class_names": class_names,
     "providers": ["CPUExecutionProvider"]
 }
@@ -38,4 +39,4 @@ img_path = "/mnt/nvme1/yongyang/projects/mqb/shenlan_quant/L6/bus.jpg"
 results, info = infer_instance.infer(img_path, info)
 logger.info(f"results : {results}")
 logger.info(f"info : {info}")
-infer_instance.show_results_single_img(img_path, results, info, "/mnt/nvme1/yongyang/projects/mqb/shenlan_quant/L6/bus_res.jpg")
+infer_instance.show_results_single_img(img_path, results, info, "/mnt/nvme1/yongyang/projects/mqb/shenlan_quant/L6/test_res.jpg")

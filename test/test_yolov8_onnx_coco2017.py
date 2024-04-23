@@ -6,6 +6,9 @@ import json
 
 
 model_path = "/mnt/nvme1/yongyang/projects/mqb/shenlan_quant/L6/yolov8n.onnx"
+val_path = "/mnt/nvme1/yongyang/projects/mqb/shenlan_quant/L6/coco2017/val2017"
+annFile = "/mnt/nvme1/yongyang/projects/mqb/shenlan_quant/L6/coco2017/annotations/instances_val2017.json"
+
 backend = "onnx"
 
 class_names = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train',
@@ -22,7 +25,6 @@ class_names = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'tra
          'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase',
          'scissors', 'teddy bear', 'hair drier', 'toothbrush')
 
-
 info = {
     "inputs_name": ["images"],
     "outputs_name" : ["output0"],
@@ -35,12 +37,10 @@ info = {
     "providers": ["CPUExecutionProvider"]
 }
 
+# Load model
 infer_instance = infer_yolov8(model_path, backend)
 infer_instance.load_model(info)
 
-
-val_path = "/mnt/nvme1/yongyang/projects/mqb/shenlan_quant/L6/coco2017/val2017"
-annFile = "/mnt/nvme1/yongyang/projects/mqb/shenlan_quant/L6/coco2017/annotations/instances_val2017.json"
 
 with open(annFile, "r") as fp_gt:
     gt_data = json.load(fp_gt)
@@ -51,14 +51,13 @@ detection_out_dict = {
    "categories": gt_data["categories"]
 }
 
+# Load all COCO val images
 coco = COCO(annFile)
-
 image_ids = coco.getImgIds()
 images = coco.loadImgs(image_ids)
 
 
 ann_idx = 0
-
 for img_idx in range(len(images)):
 
     logger.info(img_idx)
@@ -88,5 +87,5 @@ for img_idx in range(len(images)):
         )
         ann_idx += 1
 
-with open("res.json", "w") as fp_out:
+with open("./res.json", "w") as fp_out:
     json.dump(detection_out_dict, fp_out, ensure_ascii=False, indent=4)
