@@ -28,8 +28,8 @@ info = {
     "outputs_name" : ["output0"],
     "input_width": 640,
     "input_height": 640,
-    "confidence_thres": 0.5,
-    "iou_thres": 0.5,
+    "confidence_thres": 0.001,
+    "iou_thres": 0.7,
     "class_names": class_names,
     "providers": ["CPUExecutionProvider"]
 }
@@ -74,15 +74,15 @@ for img_idx in range(len(images)):
             {
                 "image_id": images[img_idx]["id"],
                 "bbox": [
-                    result[2],
                     result[3],
                     result[4],
-                    result[5]
+                    result[5],
+                    result[6]
                 ],
                 "category_id": gt_data["categories"][result[0]]["id"],
                 "id": ann_idx,
-                "score": 1.0,
-                "area": result[4] * result[5]
+                "score": result[2],
+                "area": result[5] * result[6]
             }
         )
         ann_idx += 1

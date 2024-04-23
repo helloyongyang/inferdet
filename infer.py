@@ -51,7 +51,7 @@ class infer(metaclass=ABCMeta):
     def show_results_single_img(self, img_path, results, class_names, save_path):
         img = cv2.imread(img_path)
         for result in results:
-            class_id, class_name, x1, y1, w, h = result
+            class_id, class_name, score, x1, y1, w, h = result
             (label_width, label_height), _ = cv2.getTextSize(class_name, cv2.FONT_HERSHEY_SIMPLEX, 0.8, 1)
             label_x = x1
             label_y = y1 - 10 if y1 - 10 > label_height else y1 + 10
