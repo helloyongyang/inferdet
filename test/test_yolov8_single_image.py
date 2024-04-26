@@ -2,7 +2,7 @@ from algo import infer_yolov8
 from loguru import logger
 
 
-model_path = "/mnt/nvme1/yongyang/projects/mqb/shenlan_quant/L6/yolov8n.onnx"
+model_path = "../../models/yolov8n.onnx"
 backend = "onnx"
 
 class_names = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train',
@@ -35,8 +35,8 @@ infer_instance = infer_yolov8(model_path, backend)
 
 infer_instance.load_model(info)
 
-img_path = "/mnt/nvme1/yongyang/projects/mqb/shenlan_quant/L6/bus.jpg"
+img_path = "../../dataset/val2017/000000000139.jpg"
 results, info = infer_instance.infer(img_path, info)
 logger.info(f"results : {results}")
 logger.info(f"info : {info}")
-infer_instance.show_results_single_img(img_path, results, info, "/mnt/nvme1/yongyang/projects/mqb/shenlan_quant/L6/test_res.jpg")
+infer_instance.show_results_single_img(img_path, results, info, "./test_res.jpg")

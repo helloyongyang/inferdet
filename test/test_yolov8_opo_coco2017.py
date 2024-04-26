@@ -9,7 +9,7 @@ model_path = "../../models/yolov8n.onnx"
 val_path = "../../dataset/val2017"
 annFile = "../../dataset/annotations/instances_val2017.json"
 
-backend = "onnx"
+backend = "openvino"
 
 class_names = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train',
          'truck', 'boat', 'traffic light', 'fire hydrant', 'stop sign',
@@ -65,9 +65,6 @@ for img_idx in range(len(images)):
     file_name = images[img_idx]["file_name"]
     img_path = os.path.join(val_path, file_name)
     results, info = infer_instance.infer(img_path, info)
-    # logger.info(f"results : {results}")
-    # logger.info(f"info : {info}")
-    # infer_instance.show_results_single_img(img_path, results, info, "/mnt/nvme1/yongyang/projects/mqb/shenlan_quant/L6/ans.jpg")
 
     for result in results:
         detection_out_dict['annotations'].append(

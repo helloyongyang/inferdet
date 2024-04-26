@@ -5,11 +5,12 @@ import os
 import json
 
 
-model_path = "../../models/yolov8n.onnx"
+model_path = "../../trt/yolov8n_fp16.engine"
+# model_path = "../../trt/yolov8n_int8.engine"
 val_path = "../../dataset/val2017"
 annFile = "../../dataset/annotations/instances_val2017.json"
 
-backend = "onnx"
+backend = "tensorrt"
 
 class_names = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train',
          'truck', 'boat', 'traffic light', 'fire hydrant', 'stop sign',
@@ -28,6 +29,7 @@ class_names = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'tra
 info = {
     "inputs_name": ["images"],
     "outputs_name" : ["output0"],
+    "output_shape": [1, 84, 8400]
     "input_width": 640,
     "input_height": 640,
     "confidence_thres": 0.001,
@@ -65,9 +67,6 @@ for img_idx in range(len(images)):
     file_name = images[img_idx]["file_name"]
     img_path = os.path.join(val_path, file_name)
     results, info = infer_instance.infer(img_path, info)
-    # logger.info(f"results : {results}")
-    # logger.info(f"info : {info}")
-    # infer_instance.show_results_single_img(img_path, results, info, "/mnt/nvme1/yongyang/projects/mqb/shenlan_quant/L6/ans.jpg")
 
     for result in results:
         detection_out_dict['annotations'].append(
