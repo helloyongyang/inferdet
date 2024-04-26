@@ -121,18 +121,3 @@ class Calibrator(trt.IInt8EntropyCalibrator2):
         with open(self.cache_file, "wb") as f:
             f.write(cache)
             f.flush()
-
-# For Dipoorlet
-def get_calib_data(num_samples=1024):
-    img_paths = []
-    data_root = "../../dataset/val2017/"
-    image_list = os.listdir(data_root)
-    random.shuffle(image_list)
-    cnt = 0
-    for img_name in image_list:
-        path = data_root + img_name
-        img = preprocess(path, info)
-        img.tofile("../../dipoorlet_work_dir/images/" + str(cnt) + ".bin")
-        cnt += 1
-        if cnt == num_samples:
-            break
